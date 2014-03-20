@@ -3,7 +3,7 @@ Facebook = {};
 var querystring = Npm.require('querystring');
 
 
-Oauth.registerService('facebook', 2, null, function(query) {
+Facebook.handleOauthRequest = function(query) {
 
   var response = getTokenResponse(query);
   var accessToken = response.accessToken;
@@ -26,7 +26,9 @@ Oauth.registerService('facebook', 2, null, function(query) {
     serviceData: serviceData,
     options: {profile: {name: identity.name}}
   };
-});
+}
+
+Oauth.registerService('facebook', 2, null, Facebook.handleOauthRequest);
 
 // checks whether a string parses as JSON
 var isJSON = function (str) {
